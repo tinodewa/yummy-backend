@@ -1,67 +1,67 @@
 var express = require('express');
 var router = express.Router();
-const User = require('../models/user');
+const Restaurant = require('../models/restaurant');
 
-//create user
+//create restaurant
 router.post('/', async (req, res) => {
     try {
-        let user = new User({ 
+        let restaurant = new Restaurant({ 
           name: req.body.name,
           email: req.body.email,
           password: req.body.password,
           address: req.body.address
         });
-        user = await user.save();
-        res.send(user);
+        restaurant = await restaurant.save();
+        res.send(restaurant);
     } catch (err) {
         res.status(400).send(err.message);
     }
 });
 
-//get all users
+//get all restaurants
 router.get('/', async (req, res) => {
-    const users = await User.find();
-    res.send(users);
+    const restaurants = await Restaurant.find();
+    res.send(restaurants);
 });
 
-//get single user
+//get single restaurant
 router.get('/:id', async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        if (!user) {
-            return res.status(404).send('User not found');
+        const restaurant = await Restaurant.findById(req.params.id);
+        if (!restaurant) {
+            return res.status(404).send('Restaurant not found');
         }
-        res.json(user);
+        res.json(restaurant);
     } catch (err) {
         res.status(400).send(err.message);
     }
 });
 
-//update user
+//update restaurant
 router.put('/:id', async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, {
+        const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
             address: req.body.address
         }, { new: true });
-        if (!user) {
-            return res.status(404).send('User not found');
+        if (!restaurant) {
+            return res.status(404).send('Restaurant not found');
         }
 
-        res.send(user);
+        res.send(restaurant);
     } catch (err) {
         res.status(400).send(err.message);
     }
 });
 
-//delete user
+//delete restaurant
 router.delete('/:id', async (req, res) => {
     try {
-        const user = await User.findByIdAndRemove(req.params.id);
-        if (!user) {
-            return res.status(404).send('User not found');
+        const restaurant = await Restaurant.findByIdAndRemove(req.params.id);
+        if (!restaurant) {
+            return res.status(404).send('Restaurant not found');
         }
         res.status(204).send();
     } catch (err) {

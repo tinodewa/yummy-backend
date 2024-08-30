@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-    _id: {type: Number, required: true},
     user_id: {type: Number, required: true},
     restaurant_id: {type: Number, required: true},
     status: {type: String, required: true},
@@ -10,6 +9,6 @@ const orderSchema = new mongoose.Schema({
     updated_at: {type: Date, required: true},
 });
 
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model('orders', orderSchema);
 
 module.exports = Order;
